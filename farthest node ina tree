@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int>ii;
+vector<ii>node[40000];
+int dis[40000];
+int n,maxi,check,mx,c,i;
+int bfs(int src)
+{
+    dis[src]=0;
+    queue<int>q;
+    q.push(src);
+    while(!q.empty())
+    {
+        int u=q.front();
+        q.pop();
+        for(int i=0; i<node[u].size(); i++)
+        {
+            int v=node[u][i].first;
+            int cost=node[u][i].second;
+            if(dis[v]==-1)
+            {
+                dis[v]=dis[u]+cost;
+                q.push(v);
+            }
+
+        }
+    }
+
+    for(int i=0; i<n; i++)
+    {
+
+        if(maxi< dis[i])
+        {
+            maxi= dis[i];
+            check=i;
+        }
+    }
+    return check;
+}
+int main()
+{
+    int test;
+    cin>>test;
+    for(i=1; i<=test; i++)
+    {
+        c=0;
+        cin>>n;
+        for(int j=1; j<n; j++)
+        {
+            int a,b,cost;
+            cin>>a>>b>>cost;
+            node[a].push_back(make_pair(b,cost));
+            node[b].push_back(make_pair(a,cost));
+
+        }
+        memset(dis,-1,sizeof dis);
+        maxi = -1;
+        check = 0;
+        int res = bfs(0);
+        memset(dis,-1,sizeof dis);
+        maxi = -1;
+        check = 0;
+        res= bfs(res);
+
+        printf("Case %d: %d\n",i, dis[res]);
+        for(int i = 0; i <= n; i++)
+            node[i].clear();
+    }
+    return 0;
+}
