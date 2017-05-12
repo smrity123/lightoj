@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+int b[10];
+int s1[10];
+int main()
+{
+    string a;
+    int test;
+    cin>>test;
+    for(int y=1; y<=test; y++)
+    {
+        scanf("%d.%d.%d.%d",&s1[0],&s1[1],&s1[2],&s1[3]);
+        cin>>a;
+        long long int res= 0;
+        int k=0;
+        for(int i = 0; i < a.size(); i++)
+        {
+            if(a[i]!='.')
+                res =2  * res  +  a[i] - 48;
+            else if(a[i]=='.')
+            {
+                b[k]=res;
+                k++;
+                res=0;
+            }
+        }
+        b[k]=res;
+        res=0;
+        int c=0;
+        for(int i=0; i<4; i++ )
+        {
+            if(s1[i]!=b[i])
+            {
+                c=1;
+                break;
+            }
+        }
+        if(c==1)
+            cout<<"Case "<<y<<": No"<<endl;
+        else
+            cout<<"Case "<<y<<": Yes"<<endl;
+
+        memset(b,-1,sizeof b);
+
+    }
+    return 0;
+}
